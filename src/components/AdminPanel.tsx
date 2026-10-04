@@ -88,7 +88,7 @@ type AdminTab = 'user_bookings' | 'booking_units' | 'blogs' | 'contacts';
 
 export function AdminPanel() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('admin_token'));
-  const [username, setUsername] = useState('parasbusinesspark@gmail.com');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -188,6 +188,7 @@ export function AdminPanel() {
 
       localStorage.setItem('admin_token', data.token);
       setToken(data.token);
+      setUsername('');
       setPassword('');
     } catch (err: any) {
       setLoginError(err.message || 'An error occurred during login');
@@ -199,6 +200,8 @@ export function AdminPanel() {
   const handleLogout = () => {
     localStorage.removeItem('admin_token');
     setToken(null);
+    setUsername('');
+    setPassword('');
     setBookingRequests([]);
     setBookingUnits([]);
     setBlogs([]);
@@ -607,7 +610,7 @@ export function AdminPanel() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className='w-full bg-neutral-900 border border-neutral-700 rounded-xl pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-primary'
-                  placeholder='parasbusinesspark@gmail.com'
+                  placeholder='Enter admin email or username'
                 />
               </div>
             </div>
