@@ -12,9 +12,11 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className='w-full flex justify-center'
           >
-            <div className='relative w-[90vw] max-w-[90vw] mx-auto overflow-hidden rounded-2xl shadow-2xl border border-gray-200 bg-white'>
+            <div className='relative w-[90vw] max-w-[90vw] mx-auto overflow-hidden rounded-2xl shadow-2xl border border-gray-200 bg-black'>
               <video
                 src='/Paras_Business_Park.mp4'
+                poster='/building1.jpg'
+                preload='metadata'
                 autoPlay
                 loop
                 muted

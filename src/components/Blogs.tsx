@@ -114,6 +114,8 @@ export function Blogs() {
                     <img
                       src={blog.cover_image || '/building1.jpg'}
                       alt={blog.title}
+                      loading='lazy'
+                      decoding='async'
                       className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = '/building1.jpg';

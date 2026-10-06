@@ -19,7 +19,10 @@ const connectionString = process.env.DATABASE_URL || 'postgresql://neondb_owner:
 
 const pool = new Pool({
   connectionString,
-  ssl: { rejectUnauthorized: false }
+  ssl: { rejectUnauthorized: false },
+  max: 10,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 8000,
 });
 
 // Initialize database tables
@@ -312,6 +315,7 @@ app.post('/api/bookings', async (req, res) => {
 
 app.get('/api/booking-units', async (req, res) => {
   try {
+    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
     const result = await pool.query(
       'SELECT * FROM booking_units WHERE active = true ORDER BY display_order ASC, id ASC'
     );
@@ -328,6 +332,7 @@ app.get('/api/booking-units', async (req, res) => {
 
 app.get('/api/blogs', async (req, res) => {
   try {
+    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
     const result = await pool.query(
       'SELECT * FROM blogs WHERE published = true ORDER BY created_at DESC'
     );
