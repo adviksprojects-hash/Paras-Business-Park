@@ -20,7 +20,7 @@
 .animate-marquee-horizontal {
   display: flex;
   width: max-content;
-  animation: marquee-horizontal 32s linear infinite;
+  animation: marquee-horizontal 16s linear infinite;
   will-change: transform;
 }
 

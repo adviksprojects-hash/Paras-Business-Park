@@ -44,7 +44,7 @@ const WhatsAppButton = () => {
       tooltip: 'Follow on Instagram',
       brandColor: 'hover:border-pink-500',
       hoverGlow: 'hover:shadow-pink-500/40',
-      iconSize: 'w-6 h-6 sm:w-6.5 sm:h-6.5',
+      iconSize: 'w-5 h-5 sm:w-5.5 sm:h-5.5',
     },
     {
       id: 'facebook',
@@ -54,7 +54,7 @@ const WhatsAppButton = () => {
       tooltip: 'Connect on Facebook',
       brandColor: 'hover:border-blue-600',
       hoverGlow: 'hover:shadow-blue-500/40',
-      iconSize: 'w-6 h-6 sm:w-6.5 sm:h-6.5',
+      iconSize: 'w-5 h-5 sm:w-5.5 sm:h-5.5',
     },
     {
       id: 'twitter',
@@ -64,7 +64,7 @@ const WhatsAppButton = () => {
       tooltip: 'Follow on Twitter (X)',
       brandColor: 'hover:border-neutral-900',
       hoverGlow: 'hover:shadow-neutral-600/40',
-      iconSize: 'w-6 h-6 sm:w-6.5 sm:h-6.5',
+      iconSize: 'w-5 h-5 sm:w-5.5 sm:h-5.5',
     },
     {
       id: 'youtube',
@@ -74,7 +74,7 @@ const WhatsAppButton = () => {
       tooltip: 'Subscribe on YouTube',
       brandColor: 'hover:border-red-600',
       hoverGlow: 'hover:shadow-red-500/40',
-      iconSize: 'w-6 h-6 sm:w-6.5 sm:h-6.5',
+      iconSize: 'w-5 h-5 sm:w-5.5 sm:h-5.5',
     },
     {
       id: 'whatsapp',
@@ -84,7 +84,7 @@ const WhatsAppButton = () => {
       tooltip: 'Chat on WhatsApp',
       brandColor: 'hover:border-green-600',
       hoverGlow: 'hover:shadow-green-500/50',
-      iconSize: 'w-7 h-7 sm:w-8 sm:h-8',
+      iconSize: 'w-8 h-8 sm:w-9 sm:h-9',
       hasNotification: true,
     },
   ];
@@ -116,10 +116,10 @@ const WhatsAppButton = () => {
               target='_blank'
               rel='noopener noreferrer'
               aria-label={item.name}
-              className={`relative flex items-center justify-center rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-115 active:scale-95 cursor-pointer ${
+              className={`relative flex items-center justify-center rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer ${
                 isWhatsApp
-                  ? 'w-13 h-13 sm:w-14 sm:h-14 bg-[#25D366] hover:bg-[#1fb855] text-white border-2 border-white/80'
-                  : `w-11 h-11 sm:w-12 sm:h-12 bg-white/95 hover:bg-white border-2 border-gray-200/90 ${item.brandColor}`
+                  ? 'w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#1fb855] text-white border-2 border-white shadow-green-500/40'
+                  : `w-10 h-10 sm:w-11 sm:h-11 bg-white/95 hover:bg-white border-2 border-gray-200/90 ${item.brandColor}`
               } ${item.hoverGlow}`}
             >
               <img
@@ -130,7 +130,7 @@ const WhatsAppButton = () => {
 
               {/* Notification Badge on WhatsApp */}
               {item.hasNotification && showNotification && (
-                <span className='absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-extrabold text-white shadow-md animate-bounce'>
+                <span className='absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-extrabold text-white shadow-md animate-bounce border-2 border-white'>
                   1
                 </span>
               )}
