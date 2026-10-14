@@ -1,17 +1,19 @@
+import { useState, useEffect } from 'react';
+
 const bannerItems = [
   {
     id: 'feature-investment',
-    image: '/Feture Investment.png',
+    image: '/feature-investment.jpg',
     title: 'Feature Investment',
   },
   {
     id: 'flats',
-    image: '/flats.png',
+    image: '/flats.jpg',
     title: 'Luxury 2 & 3 BHK Flats',
   },
   {
     id: 'shops-and-office',
-    image: '/Shops and Office.png',
+    image: '/shops-and-office.jpg',
     title: 'Commercial Shops & Offices',
   },
 ];
@@ -25,6 +27,32 @@ const marqueeList = [
 ];
 
 export function Hero() {
+  const [isImagesReady, setIsImagesReady] = useState(false);
+
+  useEffect(() => {
+    // Preload the 3 unique banner images in memory so all images appear together instantaneously
+    let loadedCount = 0;
+    const urls = bannerItems.map((b) => b.image);
+
+    urls.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      if (img.complete) {
+        loadedCount++;
+        if (loadedCount === urls.length) setIsImagesReady(true);
+      } else {
+        img.onload = () => {
+          loadedCount++;
+          if (loadedCount === urls.length) setIsImagesReady(true);
+        };
+        img.onerror = () => {
+          loadedCount++;
+          if (loadedCount === urls.length) setIsImagesReady(true);
+        };
+      }
+    });
+  }, []);
+
   const handleRedirectToBookings = () => {
     const bookingsElement = document.getElementById('bookings');
     if (bookingsElement) {
@@ -40,15 +68,19 @@ export function Hero() {
       className='w-full pt-24 sm:pt-28 pb-10 sm:pb-12 bg-gradient-to-b from-purple-50/40 via-white to-gray-50/60 overflow-hidden'
     >
       {/* Relative container with subtle Left & Right edge blur light */}
-      <div className='relative w-full overflow-hidden select-none py-2'>
+      <div className='relative w-full overflow-hidden select-none py-2 min-h-[350px] sm:min-h-[420px] md:min-h-[480px] lg:min-h-[530px] flex items-center'>
         {/* Subtle Left Soft Edge Fade */}
         <div className='absolute left-0 top-0 bottom-0 w-12 sm:w-20 lg:w-28 z-20 pointer-events-none bg-gradient-to-r from-white/90 via-white/40 to-transparent' />
 
         {/* Subtle Right Soft Edge Fade */}
         <div className='absolute right-0 top-0 bottom-0 w-12 sm:w-20 lg:w-28 z-20 pointer-events-none bg-gradient-to-l from-white/90 via-white/40 to-transparent' />
 
-        {/* Continuous Moving Images Track (Right-to-Left Infinite Loop) */}
-        <div className='animate-marquee-horizontal flex w-max'>
+        {/* Continuous Moving Images Track (Fades in together once all unique images are ready) */}
+        <div
+          className={`animate-marquee-horizontal flex w-max transition-opacity duration-500 ${
+            isImagesReady ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
           {/* First track */}
           <div className='flex shrink-0 items-center gap-5 sm:gap-7 pr-5 sm:pr-7'>
             {marqueeList.map((item, idx) => (
@@ -67,7 +99,8 @@ export function Hero() {
                     src={item.image}
                     alt={item.title}
                     className='h-[350px] sm:h-[420px] md:h-[480px] lg:h-[530px] w-auto object-contain select-none pointer-events-none'
-                    loading={idx < 4 ? 'eager' : 'lazy'}
+                    loading='eager'
+                    decoding='async'
                     draggable={false}
                   />
                 </div>
@@ -94,7 +127,8 @@ export function Hero() {
                     src={item.image}
                     alt={item.title}
                     className='h-[350px] sm:h-[420px] md:h-[480px] lg:h-[530px] w-auto object-contain select-none pointer-events-none'
-                    loading='lazy'
+                    loading='eager'
+                    decoding='async'
                     draggable={false}
                   />
                 </div>
